@@ -20,7 +20,7 @@ def aks_ai():
 
 
 window = tk.Tk()
-window.geometry("800x850")
+window.geometry("900x850")
 window.title("AI Assistant")
 window.configure(bg="black")
 output_field = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=90, height=45, bg="gray", fg="white")
