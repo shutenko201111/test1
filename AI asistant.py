@@ -10,13 +10,20 @@ client = genai.Client(api_key=API_KEY)
 def aks_ai():
     que = input_field.get("1.0", tk.END).strip()
     if que:
-        with open("InputLogs.txt", "a", encoding="utf-8") as f_in:
-            f_in.write(f"Запит:\n{que}\n{'-' * 20}\n")
-        response = client.models.generate_content(model="gemini-3.6-flash", contents=que)
-        with open("OutputLogs.txt", "a", encoding="utf-8") as f_out:
-            f_out.write(f"Відповідь:\n{response.text}\n{'-' * 20}\n")
-        output_field.delete(1.0, tk.END)
-        output_field.insert(tk.END, response.text)
+        try:
+            with open("InputLogs.txt", "a", encoding="utf-8") as f_in:
+                f_in.write(f"Запит:\n{que}\n{'-' * 20}\n")
+            response = client.models.generate_content(model="gemini-3.6-flash", contents=que)
+            with open("OutputLogs.txt", "a", encoding="utf-8") as f_out:
+                f_out.write(f"Відповідь:\n{response.text}\n{'-' * 20}\n")
+            output_field.delete(1.0, tk.END)
+            output_field.insert(tk.END, response.text)
+        except:
+            with open("OutputLogs.txt", "a", encoding="utf-8") as f_out:
+                f_out.write(f"Сталась помилка\n{'-' * 20}\n")
+            output_field.delete(1.0, tk.END)
+            output_field.insert(tk.END, "Сталась помилка")
+
 
 
 window = tk.Tk()
